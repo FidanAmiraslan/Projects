@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() 
+{
+    char text[] = "sample text sample text sample text sample text sample text sample text ";
+    char b[] = "text";
+    int len = strlen(text);
+    int len_b = strlen(b);
+
+    for (int i = 0; i <= len - len_b; i++)
+	  {
+        int result = strncmp(text + i, b, len_b);
+        if (result == 0) 
+		    {
+            printf("Text found at position %d\n", i);
+        }
+    }
+
+    return 0;
+}
