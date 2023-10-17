@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <math.h>
+
+int ten(int num2)
+{
+	int i =0,num10 = 0;
+	
+	while (num2>0)
+	{
+		int a = num2 % 10;         
+		num10 = num10 + a * pow(2,i);
+		num2 = num2 / 10;
+		i++;
+	}
+	return num10;
+}
+
+int reversenum(int num)
+{
+	int r_num =0;
+	while (num >0) 
+	{
+    	int remain = num % 10;
+    	r_num = r_num * 10 + remain;
+    	num = num / 10;
+	}
+    return r_num;
+}
+
+
+int main()
+{
+	int num2,x,result,num8;
+	
+	printf("Binary number = ");
+	scanf("%d",&num2);
+	
+	printf("Convert to octal(8) or decimal(10): ");
+	scanf("%d",&x);
+	
+	switch(x)
+	{
+		case 10:
+			result = ten(num2);
+			break;
+		
+		
+		case 8:
+			num8 = ten(num2);
+			result = 0;
+			
+			while (num8 > 0)
+			{
+				int m = num8 % 8;
+				result = m + result * 10;
+				num8 = num8 / 8;
+			} 
+			result = reversenum(result);
+			break;
+	}
+	
+	printf("Result = %d\n",result);
+}
