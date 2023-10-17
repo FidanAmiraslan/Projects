@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int main()
+{
+	int m,n,size;
+	printf("Size of 1. and 2. array = ");
+	scanf("%d%d",&m,&n);
+	size = m + n;
+	int arr1[m],arr2[n],merged[size];
+	
+	for(int i = 0;i < m;i++)
+	{
+		printf("Element of first array ");
+		scanf("%d",&arr1[i]);
+		merged[i] = arr1[i];  
+	}
+	
+	for(int a = 0;a < n;a++)
+	{
+		printf("Element of second array ");
+		scanf("%d",&arr2[a]);
+		merged[a + n -2] = arr2[a];
+	}
+	
+	for(int x = 0;x < size;x++)
+	{
+		printf("%d",merged[x]);
+	}
+
+}
