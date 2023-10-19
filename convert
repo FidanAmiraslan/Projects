@@ -1,63 +1,125 @@
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
-int ten(int num2)
-{
-	int i =0,num10 = 0;
-	
-	while (num2>0)
-	{
-		int a = num2 % 10;         
-		num10 = num10 + a * pow(2,i);
-		num2 = num2 / 10;
-		i++;
-	}
-	return num10;
-}
-
-int reversenum(int num)
-{
-	int r_num =0;
-	while (num >0) 
-	{
-    	int remain = num % 10;
-    	r_num = r_num * 10 + remain;
-    	num = num / 10;
-	}
-    return r_num;
-}
-
+int binary_to_decimal(int binaryNum);
+int reverseNum(int num);
+void reverseStr(char s[]);
 
 int main()
 {
-	int num2,x,result,num8;
+    int binaryNum, type, result, octalNum, hexNum; 
 	
-	printf("Binary number = ");
-	scanf("%d",&num2);
+    printf("Binary number = ");
+    scanf("%d", &binaryNum);
 	
-	printf("Convert to octal(8) or decimal(10): ");
-	scanf("%d",&x);
+    printf("Convert to octal(8) or decimal(10) or hexadecimal(16): ");
+    scanf("%d", &type);
 	
-	switch(x)
-	{
-		case 10:
-			result = ten(num2);
-			break;
-		
-		
-		case 8:
-			num8 = ten(num2);
-			result = 0;
+    switch(type)
+    {
+        case 10:
+            result = binary_to_decimal(binaryNum);
+            printf("Result = %d\n", result);
+            break;
+        
+        case 8:
+            octalNum = binary_to_decimal(binaryNum);
+            result = 0;
 			
-			while (num8 > 0)
-			{
-				int m = num8 % 8;
-				result = m + result * 10;
-				num8 = num8 / 8;
-			} 
-			result = reversenum(result);
-			break;
-	}
+            while (octalNum > 0)
+            {
+                int m = octalNum % 8;
+                result = m + result * 10;
+                octalNum = octalNum / 8;
+            } 
+            result = reverseNum(result);
+            printf("Result = %d\n", result);
+            break;
+
+        case 16:
+            char hex[100] = "";
+            hexNum = binary_to_decimal(binaryNum);
+            result = 0;
 	
-	printf("Result = %d\n",result);
+            while (hexNum > 0)
+            {
+                int w = hexNum % 16;
+                char letter[2];
+		
+                switch (w) 
+                {
+                    case 10:
+                        strcpy(letter, "A");
+                        break;
+	
+                    case 11:
+                        strcpy(letter, "B");
+                        break;
+		
+                    case 12:
+                        strcpy(letter, "C");
+                        break;
+	
+                    case 13:
+                        strcpy(letter, "D");
+                        break;
+		
+                    case 14:
+                        strcpy(letter, "E");
+                        break;
+		
+                    case 15:
+                        strcpy(letter, "F");
+                        break;
+	
+                    default:
+                        snprintf(letter, 2, "%d", w);
+                }
+                strncat(hex, letter, 2);
+                hexNum = hexNum / 16;
+            }
+            reverseStr(hex);
+            break;
+    }
+}
+
+int binary_to_decimal(int binaryNum)
+{
+    int i = 0, decimalNum = 0; 
+    while (binaryNum > 0)
+    {
+        int a = binaryNum % 10;         
+        decimalNum = decimalNum + a * pow(2, i);
+        binaryNum = binaryNum / 10;
+        i++;
+    }
+    return decimalNum;
+}
+
+int reverseNum(int num)
+{
+    int r_num = 0;
+    while (num > 0) 
+    {
+        int remain = num % 10;
+        r_num = r_num * 10 + remain;
+        num = num / 10;
+    }
+    return r_num;
+}
+
+void reverseStr(char s[])
+{
+    int size = strlen(s);
+    char rs[size + 1];
+    for (int i = size - 1; i >= 0; i--)
+    {
+        rs[size - 1 - i] = s[i];
+    }
+    
+    rs[size] = '\0';
+    printf("Result = ");
+    for (int i = 0; i < size; i++)
+        printf("%c", rs[i]);
 }
