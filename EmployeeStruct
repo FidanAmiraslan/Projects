@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Subordinate 
+{
+    char name[50];
+    int id;      
+};
+
+struct Manager
+{
+    char name[50];
+    int id;
+    struct Subordinate subordinates[10];
+};
+
+struct CEO
+{
+    char name[50];
+    int id;
+    struct Manager managers[5];
+};
+
+int main()
+{
+    int managerID = 100;
+    int subordinateID = 1;
+    int sID, mID;
+    
+	struct CEO ceo1;
+    ceo1.id = 1000;
+    printf("CEO1 ID = %d\n", ceo1.id);
+
+    for (int i = 0; i < 5; i++)
+    {
+        mID = ceo1.managers[i].id;
+        mID = managerID;
+        managerID++;
+
+        printf("    Manager%d ID = %d\n", i, mID);
+
+        for (int j = 0; j < 10; j++)
+        {
+            sID = ceo1.managers[i].subordinates[j].id;
+            sID = subordinateID;
+            subordinateID = subordinateID + 1;
+            printf("        Subordinate%d ID = %d\n", j, sID);
+        }
+        printf("\n");
+    }
+}
